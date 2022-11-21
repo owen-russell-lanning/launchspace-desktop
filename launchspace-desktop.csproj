@@ -8,4 +8,16 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="icons\close.png" />
+    <None Remove="icons\maximize.png" />
+    <None Remove="icons\minimize.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="icons\close.png" />
+    <Resource Include="icons\maximize.png" />
+    <Resource Include="icons\minimize.png" />
+  </ItemGroup>
+
 </Project>

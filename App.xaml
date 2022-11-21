@@ -4,6 +4,10 @@
              xmlns:local="clr-namespace:launchspace_desktop"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <SolidColorBrush x:Key="PRIMARY_COLOR">#212121</SolidColorBrush>
+        <SolidColorBrush x:Key="SECONDARY_COLOR">#1c1c1b</SolidColorBrush>
+        <SolidColorBrush x:Key="TERTIARY_COLOR">#424242</SolidColorBrush>
+        <SolidColorBrush x:Key="TEXT_COLOR">white</SolidColorBrush>
+
     </Application.Resources>
 </Application>
