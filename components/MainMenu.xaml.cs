@@ -1,4 +1,5 @@
-﻿using System;
+﻿using launchspace_desktop.pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,27 @@ namespace launchspace_desktop.components
         public MainMenu()
         {
             InitializeComponent();
+            settingsPageButton.MouseUp += (sen, e) => { ((MainWindow)App.Current.MainWindow).SetPage(new SettingsPage()); };
+            launcherPageButton.MouseUp += (sen, e) => { ((MainWindow)App.Current.MainWindow).SetPage(new LaunchersPage()); };
+        }
+
+
+        public void PageChanged(string pageName)
+        {
+            foreach(Control c in buttonsPanel.Children)
+            {
+                ListLabelButton  l = (ListLabelButton)c;
+                l.ToggleOff();
+            }
+
+            if(pageName == LaunchersPage.PAGE_NAME)
+            {
+                launcherPageButton.ToggleOn();
+            }
+            else if(pageName == SettingsPage.PAGE_NAME)
+            {
+                settingsPageButton.ToggleOn();
+            }
         }
     }
 }

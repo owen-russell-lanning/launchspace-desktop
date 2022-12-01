@@ -5,24 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:launchspace_desktop" xmlns:components="clr-namespace:launchspace_desktop.components"
         mc:Ignorable="d"
-        AllowsTransparency="True"
+        AllowsTransparency="False"
         ResizeMode="CanResize"
         WindowStyle="None"
         Title="Launchspace" Height="720" Width="1280"
         Background="{StaticResource PRIMARY_COLOR}">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0"/>
+    </WindowChrome.WindowChrome>
     <Grid VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
-            <RowDefinition Height="30px"></RowDefinition>
+            <RowDefinition x:Name="titleBarRow" Height="30px"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <components:TitleBar></components:TitleBar>
+        <components:TitleBar x:Name="titleBar"></components:TitleBar>
         <Grid Grid.Row="1" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.25*"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <components:MainMenu Grid.Column="0" Background="{StaticResource SECONDARY_COLOR}">
+            <components:MainMenu x:Name="mainMenu" Grid.Column="0" Background="{StaticResource SECONDARY_COLOR}">
             </components:MainMenu>
+            <Frame NavigationUIVisibility="Hidden" x:Name="pageContent"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="1">
+
+            </Frame>
         </Grid>
     </Grid>
 </Window>

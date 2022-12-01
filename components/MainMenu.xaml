@@ -6,6 +6,11 @@
              xmlns:local="clr-namespace:launchspace_desktop.components"
              mc:Ignorable="d" >
     <Grid>
+
+        <StackPanel x:Name="buttonsPanel" Margin="20,0,0,0">
+            <local:ListLabelButton x:Name="launcherPageButton">Launchers</local:ListLabelButton>
+            <local:ListLabelButton x:Name="settingsPageButton">Settings</local:ListLabelButton>
+        </StackPanel>
             
     </Grid>
 </UserControl>

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Shell;
 
 namespace launchspace_desktop.components
 {
@@ -32,12 +33,9 @@ namespace launchspace_desktop.components
                 App.Current.MainWindow.Close();
             });
             imageButtonMinimize.SetSource(@"/icons/minimize.png");
-            imageButtonMinimize.AddOnClick(() =>
-            {
-                App.Current.MainWindow.WindowState = WindowState.Minimized;
-            });
+            imageButtonMinimize.AddOnClick(((MainWindow)App.Current.MainWindow).Minimize);
             imageButtonMaximize.SetSource(@"/icons/maximize.png");
-            imageButtonMaximize.AddOnClick(ToggleMaximize);
+            imageButtonMaximize.AddOnClick(((MainWindow)App.Current.MainWindow).ToggleMaximize);
         }
 
         protected override void OnMouseDown(MouseButtonEventArgs e)
@@ -51,23 +49,14 @@ namespace launchspace_desktop.components
             base.OnMouseDoubleClick(e);
 
             //toggle window mazimization on double click
-            ToggleMaximize();
+            ((MainWindow)App.Current.MainWindow).ToggleMaximize();
 
         }
 
-        /// <summary>
-        /// toggles the maximization status of the window
-        /// </summary>
-        private void ToggleMaximize()
-        {
-            if (App.Current.MainWindow.WindowState == WindowState.Maximized)
-            {
-                App.Current.MainWindow.WindowState = WindowState.Normal;
-            }
-            else if (App.Current.MainWindow.WindowState == WindowState.Normal)
-            {
-                App.Current.MainWindow.WindowState = WindowState.Maximized;
-            }
-        }
+
+        
+
+
+       
     }
 }
