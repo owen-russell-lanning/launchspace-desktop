@@ -32,6 +32,7 @@ namespace launchspace_desktop.components
         {
 
             grid = new Grid();
+            grid.VerticalAlignment = VerticalAlignment.Center;
             ColumnDefinition c1 = new ColumnDefinition();
             ColumnDefinition c2 = new ColumnDefinition();
             c1.Width = new System.Windows.GridLength(0.2, GridUnitType.Star);
@@ -39,6 +40,8 @@ namespace launchspace_desktop.components
             grid.ColumnDefinitions.Add(c1);
             grid.ColumnDefinitions.Add(c2);
             image = new Image();
+            image.Height = 20;
+            image.Margin = new Thickness(10, 0, 0, 0);
 
             label = new Label();
             label.Foreground = Constants.TEXT_COLOR;
@@ -54,6 +57,7 @@ namespace launchspace_desktop.components
             this.Background = BACKGROUND_COLOR;
             this.Child = grid;
             this.CornerRadius = new CornerRadius(10);
+            
        
            
         }

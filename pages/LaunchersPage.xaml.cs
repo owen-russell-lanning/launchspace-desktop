@@ -1,4 +1,5 @@
-﻿using System;
+﻿using launchspace_desktop.windows;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,8 @@ namespace launchspace_desktop.pages
         {
             InitializeComponent();
             newLauncherButton.SetText("New Launcher");
+            newLauncherButton.SetSource(@"/icons/add.png");
+            newLauncherButton.AddOnClick(NewLauncherWindow.TryOpenNewWindow);
         }
 
 

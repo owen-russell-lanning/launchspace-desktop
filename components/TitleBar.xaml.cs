@@ -21,16 +21,43 @@ namespace launchspace_desktop.components
     /// </summary>
     public partial class TitleBar : UserControl
     {
+        Window parent = null; //the window the title bar is on
+
+
+        /// <summary>
+        /// title bar with input. does not need to be initialized
+        /// </summary>
+        /// <param name="parent"></param>
+        public TitleBar(Window parent)
+        {
+            InitializeComponent();
+            Init(parent);
+
+           
+        }
+
+        /// <summary>
+        /// call init after using paremeterless constructor
+        /// </summary>
         public TitleBar()
         {
             InitializeComponent();
+            
+        }
 
+        /// <summary>
+        /// initializes the title bar
+        /// </summary>
+        /// <param name="parent"></param>
+        public void Init(Window parent)
+        {
+            this.parent = parent;
             //set title as window title
-            titleLabel.Content = App.Current.MainWindow.Title;
+            titleLabel.Content = parent.Title;
             imageButtonClose.SetSource(@"/icons/close.png");
             imageButtonClose.AddOnClick(() =>
             {
-                App.Current.MainWindow.Close();
+                parent.Close();
             });
             imageButtonMinimize.SetSource(@"/icons/minimize.png");
             imageButtonMinimize.AddOnClick(((MainWindow)App.Current.MainWindow).Minimize);
@@ -41,7 +68,7 @@ namespace launchspace_desktop.components
         protected override void OnMouseDown(MouseButtonEventArgs e)
         {
             base.OnMouseDown(e);
-            App.Current.MainWindow.DragMove();
+            parent.DragMove();
         }
 
         protected override void OnMouseDoubleClick(MouseButtonEventArgs e)
@@ -54,9 +81,9 @@ namespace launchspace_desktop.components
         }
 
 
-        
 
 
-       
+
+
     }
 }

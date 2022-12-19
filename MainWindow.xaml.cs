@@ -1,4 +1,5 @@
-﻿using launchspace_desktop.pages;
+﻿using launchspace_desktop.lib;
+using launchspace_desktop.pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,10 +26,13 @@ namespace launchspace_desktop
     {
         private double normalHeight;
         private double normalWidth;
+        private double normalTop;
+        private double normalLeft;
         private bool wasMaximized = false;
         private bool firstMaximizeResize = false; //first resze from the window in the maximzation process
         private bool isMaximizedWithTaskbar = false; //true if the window is maximized with taskbar
         private ControlPage currentPage;
+        private WindowActionHandler windowActionHandler;
 
         public MainWindow()
         {
@@ -39,6 +43,8 @@ namespace launchspace_desktop
             this.normalWidth = Width;
             this.SizeChanged += (sen, e) => { HandleSizeChanged(); };
             this.SetPage(new LaunchersPage());
+            titleBar.Init(this);
+            windowActionHandler = new WindowActionHandler(this);
 
         }
 
@@ -74,16 +80,12 @@ namespace launchspace_desktop
             }
         }
 
-        /// <summary>
-        /// minimizes the main window
-        /// </summary>
         public void Minimize()
         {
-
-            App.Current.MainWindow.WindowStyle = WindowStyle.SingleBorderWindow;
-            App.Current.MainWindow.WindowState = WindowState.Minimized;
-
+            windowActionHandler.Minimize();
         }
+
+    
 
 
         /// <summary>
@@ -107,11 +109,15 @@ namespace launchspace_desktop
                 {
                     this.Width = normalWidth;
                     this.Height = normalHeight;
+                    this.Top = normalTop;
+                    this.Left = normalLeft;
                 }
                 else
                 {
                     normalWidth = this.ActualWidth;
                     normalHeight = this.ActualHeight;
+                    normalLeft = this.Left;
+                    normalTop = this.Top;
                 }
                 wasMaximized = false;
 
