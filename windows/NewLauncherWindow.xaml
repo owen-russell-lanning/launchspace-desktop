@@ -6,16 +6,37 @@
         xmlns:local="clr-namespace:launchspace_desktop.windows" xmlns:components="clr-namespace:launchspace_desktop.components"
         mc:Ignorable="d"
         Title="New Launcher" Height="450" Width="800"
-        Background="{StaticResource PRIMARY_COLOR}">
+        Background="{StaticResource PRIMARY_COLOR}"
+          AllowsTransparency="False"
+        ResizeMode="CanResize"
+        WindowStyle="None">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0"/>
     </WindowChrome.WindowChrome>
     <Grid VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition x:Name="titleBarRow" Height="30px"></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="0.7*"></RowDefinition>
+            <RowDefinition Height="0.12*"></RowDefinition>
         </Grid.RowDefinitions>
         <components:TitleBar x:Name="titleBar"></components:TitleBar>
-        
+        <StackPanel Grid.Row="1" Margin="30, 20">
+            <components:TextInput x:Name="nameInput" Padding="6"></components:TextInput>
+            <StackPanel Orientation="Horizontal" >
+                <Label VerticalAlignment="Center" Foreground="{StaticResource TEXT_COLOR}" FontWeight="Bold">Enable in Start Menu</Label>
+                <CheckBox Margin="0,20" VerticalAlignment="Center"></CheckBox>
+
+            </StackPanel>
+
+        </StackPanel>
+        <Grid  Grid.Row="2" Margin="15,15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.8*"></ColumnDefinition>
+                <ColumnDefinition Width="0.2*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="errorLabel" Foreground="Red" HorizontalAlignment="Left"></Label>
+            <components:TextButton HorizontalAlignment="Right" x:Name="createButton" Grid.Column="1" ></components:TextButton>
+        </Grid>
+
     </Grid>
 </Window>

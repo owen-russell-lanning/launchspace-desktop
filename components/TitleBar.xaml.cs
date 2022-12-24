@@ -1,4 +1,5 @@
-﻿using System;
+﻿using launchspace_desktop.windows;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,16 +23,17 @@ namespace launchspace_desktop.components
     public partial class TitleBar : UserControl
     {
         Window parent = null; //the window the title bar is on
+        bool maximizeable = false; //if the window can be maximized
 
 
         /// <summary>
         /// title bar with input. does not need to be initialized
         /// </summary>
         /// <param name="parent"></param>
-        public TitleBar(Window parent)
+        public TitleBar(TitleBarWindow parent, bool maximizeable)
         {
             InitializeComponent();
-            Init(parent);
+            Init(parent, maximizeable);
 
            
         }
@@ -42,6 +44,7 @@ namespace launchspace_desktop.components
         public TitleBar()
         {
             InitializeComponent();
+            maximizeable = true;
             
         }
 
@@ -49,20 +52,32 @@ namespace launchspace_desktop.components
         /// initializes the title bar
         /// </summary>
         /// <param name="parent"></param>
-        public void Init(Window parent)
+        public void Init(TitleBarWindow parent, bool maximizeable)
         {
-            this.parent = parent;
+            this.parent = (Window)parent;
+            this.maximizeable = maximizeable;
             //set title as window title
-            titleLabel.Content = parent.Title;
+            titleLabel.Content = this.parent.Title;
             imageButtonClose.SetSource(@"/icons/close.png");
             imageButtonClose.AddOnClick(() =>
             {
-                parent.Close();
+                this.parent.Close();
             });
             imageButtonMinimize.SetSource(@"/icons/minimize.png");
-            imageButtonMinimize.AddOnClick(((MainWindow)App.Current.MainWindow).Minimize);
-            imageButtonMaximize.SetSource(@"/icons/maximize.png");
-            imageButtonMaximize.AddOnClick(((MainWindow)App.Current.MainWindow).ToggleMaximize);
+            imageButtonMinimize.AddOnClick(((TitleBarWindow)parent).Minimize);
+
+            if (maximizeable)
+            {
+                imageButtonMaximize.SetSource(@"/icons/maximize.png");
+                imageButtonMaximize.AddOnClick(((TitleBarWindow)parent).ToggleMaximize);
+            }
+            else
+            {
+
+                //remove maximize button and move minimize
+                Grid.SetColumn(imageButtonMinimize, 2);
+                grid.Children.Remove(imageButtonMaximize);
+            }
         }
 
         protected override void OnMouseDown(MouseButtonEventArgs e)
@@ -76,7 +91,7 @@ namespace launchspace_desktop.components
             base.OnMouseDoubleClick(e);
 
             //toggle window mazimization on double click
-            ((MainWindow)App.Current.MainWindow).ToggleMaximize();
+            ((TitleBarWindow)parent).ToggleMaximize();
 
         }
 

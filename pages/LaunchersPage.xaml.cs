@@ -1,4 +1,6 @@
-﻿using launchspace_desktop.windows;
+﻿using launchspace_desktop.components;
+using launchspace_desktop.lib;
+using launchspace_desktop.windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,12 +25,77 @@ namespace launchspace_desktop.pages
     {
 
         public static readonly string PAGE_NAME = "launchers_page";
+        private bool editMode = false; //if page is currently in edit mode
+
         public LaunchersPage()
         {
             InitializeComponent();
             newLauncherButton.SetText("New Launcher");
             newLauncherButton.SetSource(@"/icons/add.png");
             newLauncherButton.AddOnClick(NewLauncherWindow.TryOpenNewWindow);
+
+            editModeButton.SetText("Edit Mode");
+            editModeButton.SetSource(@"/icons/edit.png");
+            editModeButton.Margin = new Thickness(10, 0, 10,0);
+            editModeButton.MakeToggleable();
+            editModeButton.AddOnClick(() =>
+            {
+                if (editModeButton.IsToggled())
+                {
+                    editMode = true;
+                }
+                else
+                {
+                    editMode = false;
+                }
+            });
+
+
+            PopulateLaunchers();
+          
+        }
+
+        /// <summary>
+        /// populates launchers from the manager onto the page
+        /// </summary>
+        private void PopulateLaunchers()
+        {
+            //get all launchers
+            List<string> launchers = LauncherManager.Current.GetLauncherNames();
+            launchersDisplay.Children.Clear();
+
+            if (launchers.Count == 0) //set no launchers message
+            {
+               
+                ListLabel noLaunchersMessage = new ListLabel() { Content = "No Launchers Found" };
+                launchersDisplay.Children.Add(noLaunchersMessage);
+                return;
+                
+            }
+
+            //display launchers
+            foreach(string launcher in launchers)
+            {
+                LauncherIconButton lButton = new LauncherIconButton(launcher);
+                lButton.Margin = new Thickness(10);
+                launchersDisplay.Children.Add(lButton);
+                lButton.AddOnClick(() =>
+                {
+                    if (editMode)
+                    {
+                        //open edit page
+                        EditLauncherPage elp = new EditLauncherPage();
+                        elp.Init(launcher);
+                        ((MainWindow)App.Current.MainWindow).SetPage(elp);
+                    }
+                    else
+                    {
+                        //run launcher
+                    }
+                });
+            }
+
+
         }
 
 

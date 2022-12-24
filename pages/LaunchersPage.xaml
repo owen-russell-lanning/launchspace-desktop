@@ -9,7 +9,10 @@
     <StackPanel Margin="20,0,0,0">
         <StackPanel Margin="0,10" Orientation="Horizontal">
             <components:TextImageButton x:Name="newLauncherButton"></components:TextImageButton>
+            <components:TextImageButton x:Name="editModeButton"></components:TextImageButton>
         </StackPanel>
-        <components:ListLabel>No Launchers Found</components:ListLabel>
+        <WrapPanel x:Name="launchersDisplay">
+            <components:ListLabel >No Launchers Found</components:ListLabel>
+        </WrapPanel>
     </StackPanel>
 </UserControl>

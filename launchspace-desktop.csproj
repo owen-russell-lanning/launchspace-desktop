@@ -11,15 +11,19 @@
   <ItemGroup>
     <None Remove="icons\add.png" />
     <None Remove="icons\close.png" />
+    <None Remove="icons\edit.png" />
     <None Remove="icons\maximize.png" />
     <None Remove="icons\minimize.png" />
+    <None Remove="icons\right.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="icons\add.png" />
     <Resource Include="icons\close.png" />
+    <Resource Include="icons\edit.png" />
     <Resource Include="icons\maximize.png" />
     <Resource Include="icons\minimize.png" />
+    <Resource Include="icons\right.png" />
   </ItemGroup>
 
 </Project>

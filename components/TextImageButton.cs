@@ -21,11 +21,14 @@ namespace launchspace_desktop.components
 
         private static readonly SolidColorBrush BACKGROUND_COLOR = Constants.TERTIARY_COLOR;
         private static readonly SolidColorBrush HOVER_COLOR = Constants.TERTIARY_HOVER_COLOR;
+        private static readonly SolidColorBrush TOGGLED_COLOR = Constants.HIGHLIGHT_COLOR;
 
         private Image image;
         private Label label;
         private Grid grid;
         private List<Action> onClickLs = new List<Action>(); //list of actions to invoke on click
+        private bool toggleable = false; //if the button is a toggleable button
+        private bool toggled = false;
 
 
         public TextImageButton()
@@ -62,6 +65,16 @@ namespace launchspace_desktop.components
            
         }
 
+        public void MakeToggleable()
+        {
+            this.toggleable = true;
+        }
+
+        public bool IsToggled()
+        {
+            return this.toggled;
+        }
+
         public void SetText(string text)
         {
             this.label.Content = text;
@@ -80,16 +93,41 @@ namespace launchspace_desktop.components
             base.OnMouseEnter(e);
             this.Background = HOVER_COLOR;
 
+            if (this.toggled)
+            {
+                this.Background = TOGGLED_COLOR;
+            }
+
+
         }
         protected override void OnMouseLeave(MouseEventArgs e)
         {
             base.OnMouseLeave(e);
             this.Background = BACKGROUND_COLOR;
 
+            if (this.toggled)
+            {
+                this.Background = TOGGLED_COLOR;
+            }
+
         }
 
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
+
+            if (this.toggleable)
+            {
+                this.toggled = !this.toggled;
+                if (this.toggled)
+                {
+                    this.Background = TOGGLED_COLOR;
+                }
+                else
+                {
+                    this.Background = HOVER_COLOR;
+                }
+            }
+
             e.Handled = true;
             foreach (Action a in onClickLs)
             {

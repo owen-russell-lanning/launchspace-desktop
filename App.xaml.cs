@@ -1,4 +1,5 @@
-﻿using System;
+﻿using launchspace_desktop.lib;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,8 @@ namespace launchspace_desktop
     /// </summary>
     public partial class App : Application
     {
+
+        //init managers
+        LauncherManager launcherManager = new LauncherManager();
     }
 }

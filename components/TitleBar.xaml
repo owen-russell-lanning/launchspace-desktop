@@ -8,7 +8,7 @@
              HorizontalAlignment="Stretch"
              MinHeight="30px" MinWidth="800px"
              Background="{StaticResource SECONDARY_COLOR}">
-    <Grid VerticalAlignment="Center">
+    <Grid x:Name="grid" VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition ></ColumnDefinition>
             <ColumnDefinition Width="30px"></ColumnDefinition>
