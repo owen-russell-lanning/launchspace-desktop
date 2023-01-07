@@ -19,6 +19,9 @@ namespace launchspace_desktop.lib
 
         public static readonly SolidColorBrush TEXT_COLOR = new SolidColorBrush(Colors.White);
         public static readonly SolidColorBrush SECONDARY_TEXT_COLOR = new SolidColorBrush(Color.FromRgb(130, 130, 129));
+
+        public static readonly int TITLE_FONT_SIZE = 25;
+        public static readonly int SUBTITLE_FONT_SIZE = 17;
       
     }
 }

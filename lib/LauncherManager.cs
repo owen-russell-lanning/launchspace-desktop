@@ -1,4 +1,6 @@
-﻿using System;
+﻿using launchspace_compiler;
+using launchspace_compiler.lib.executables;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -72,6 +74,22 @@ namespace launchspace_desktop.lib
             }
 
             return launchers;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>the full path of the launcher with the given name</returns>
+        public string GetLauncherFullPath(string name)
+        {
+            return Path.Join(LAUNCHERS_PATH, name + ".lnch");
+        }
+
+        public void CompileLauncher(Queue<IExecutable> execs, string name)
+        {
+            Compiler.Compile(execs, GetLauncherFullPath(name));
         }
 
 

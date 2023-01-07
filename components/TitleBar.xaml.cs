@@ -30,7 +30,7 @@ namespace launchspace_desktop.components
         /// title bar with input. does not need to be initialized
         /// </summary>
         /// <param name="parent"></param>
-        public TitleBar(TitleBarWindow parent, bool maximizeable)
+        public TitleBar(ITitleBarWindow parent, bool maximizeable)
         {
             InitializeComponent();
             Init(parent, maximizeable);
@@ -48,28 +48,33 @@ namespace launchspace_desktop.components
             
         }
 
+        public void RefreshTitle()
+        {
+            titleLabel.Content = this.parent.Title;
+        }
+
         /// <summary>
         /// initializes the title bar
         /// </summary>
         /// <param name="parent"></param>
-        public void Init(TitleBarWindow parent, bool maximizeable)
+        public void Init(ITitleBarWindow parent, bool maximizeable)
         {
             this.parent = (Window)parent;
             this.maximizeable = maximizeable;
             //set title as window title
-            titleLabel.Content = this.parent.Title;
+            RefreshTitle();
             imageButtonClose.SetSource(@"/icons/close.png");
             imageButtonClose.AddOnClick(() =>
             {
                 this.parent.Close();
             });
             imageButtonMinimize.SetSource(@"/icons/minimize.png");
-            imageButtonMinimize.AddOnClick(((TitleBarWindow)parent).Minimize);
+            imageButtonMinimize.AddOnClick(((ITitleBarWindow)parent).Minimize);
 
             if (maximizeable)
             {
                 imageButtonMaximize.SetSource(@"/icons/maximize.png");
-                imageButtonMaximize.AddOnClick(((TitleBarWindow)parent).ToggleMaximize);
+                imageButtonMaximize.AddOnClick(((ITitleBarWindow)parent).ToggleMaximize);
             }
             else
             {
@@ -91,7 +96,7 @@ namespace launchspace_desktop.components
             base.OnMouseDoubleClick(e);
 
             //toggle window mazimization on double click
-            ((TitleBarWindow)parent).ToggleMaximize();
+            ((ITitleBarWindow)parent).ToggleMaximize();
 
         }
 

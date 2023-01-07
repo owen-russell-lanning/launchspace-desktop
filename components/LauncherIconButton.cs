@@ -51,6 +51,7 @@ namespace launchspace_desktop.components
 
             //make text
             nameLabel = new Label() { Content = launcherName, Foreground = Constants.TEXT_COLOR};
+            nameLabel.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
             Grid.SetRow(nameLabel, 1);
             contentGrid.Children.Add(nameLabel);
 

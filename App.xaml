@@ -9,6 +9,7 @@
         <SolidColorBrush x:Key="TERTIARY_COLOR">#424242</SolidColorBrush>
         <SolidColorBrush x:Key="TEXT_COLOR">white</SolidColorBrush>
         <SolidColorBrush x:Key="SECONDARY_TEXT_COLOR">#828281</SolidColorBrush>
+        <SolidColorBrush x:Key="HIGHLIGHT_COLOR">#0086e6</SolidColorBrush>
 
     </Application.Resources>
 </Application>

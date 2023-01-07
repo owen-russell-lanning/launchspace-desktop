@@ -22,7 +22,7 @@ namespace launchspace_desktop
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, TitleBarWindow
+    public partial class MainWindow : Window, ITitleBarWindow
     {
 
         private ControlPage currentPage;
@@ -62,12 +62,19 @@ namespace launchspace_desktop
             windowActionHandler.Minimize();
         }
 
+        protected override void OnMouseDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseDown(e);
+            //unfocus other elements
+            Keyboard.ClearFocus();
+        }
 
-        
-    
 
 
-       
+
+
+
+
 
         public void SetPage(ControlPage page)
         {
@@ -77,6 +84,11 @@ namespace launchspace_desktop
             //update menu
             mainMenu.PageChanged(page.GetName());
            
+        }
+
+        public ControlPage GetPage()
+        {
+            return this.currentPage;
         }
      
     }

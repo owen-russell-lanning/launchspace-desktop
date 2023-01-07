@@ -32,11 +32,18 @@ namespace launchspace_desktop.pages
             InitializeComponent();
             newLauncherButton.SetText("New Launcher");
             newLauncherButton.SetSource(@"/icons/add.png");
-            newLauncherButton.AddOnClick(NewLauncherWindow.TryOpenNewWindow);
+            newLauncherButton.AddOnClick(() =>
+            {
+                //open a sub window with a new launcher page as it's content
+                TitleBarWindow newWin = TitleBarWindow.TryOpenNewWindow();
+                NewLauncherPage p = new NewLauncherPage();
+                newWin.SetContent(p, "New Launcher");
+                p.SetWindow(newWin);
+            });
 
-            editModeButton.SetText("Edit Mode");
+            editModeButton.SetText("Edit");
             editModeButton.SetSource(@"/icons/edit.png");
-            editModeButton.Margin = new Thickness(10, 0, 10,0);
+            editModeButton.Margin = new Thickness(10, 0, 10, 0);
             editModeButton.MakeToggleable();
             editModeButton.AddOnClick(() =>
             {
@@ -52,7 +59,7 @@ namespace launchspace_desktop.pages
 
 
             PopulateLaunchers();
-          
+
         }
 
         /// <summary>
@@ -66,15 +73,15 @@ namespace launchspace_desktop.pages
 
             if (launchers.Count == 0) //set no launchers message
             {
-               
+
                 ListLabel noLaunchersMessage = new ListLabel() { Content = "No Launchers Found" };
                 launchersDisplay.Children.Add(noLaunchersMessage);
                 return;
-                
+
             }
 
             //display launchers
-            foreach(string launcher in launchers)
+            foreach (string launcher in launchers)
             {
                 LauncherIconButton lButton = new LauncherIconButton(launcher);
                 lButton.Margin = new Thickness(10);

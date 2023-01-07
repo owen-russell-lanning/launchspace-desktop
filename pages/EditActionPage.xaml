@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="launchspace_desktop.pages.EditActionPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:launchspace_desktop.pages" xmlns:components="clr-namespace:launchspace_desktop.components"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid x:Name="grid"  VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.2*"></RowDefinition>
+            <RowDefinition Height="0.66*"></RowDefinition>
+            <RowDefinition Height="0.14*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Margin="20,7" >
+            <Label Margin="0,10" Padding="0"  FontWeight="Bold" FontSize="13" Foreground="{StaticResource TEXT_COLOR}">Action Type</Label>
+            <StackPanel Orientation="Horizontal" x:Name="actionTypeStack">
+                <components:ImageButton x:Name="fileIcon" Height="30" Source="/icons/executables/file.png"></components:ImageButton>
+                <components:ImageButton Margin="5,0,0,0" x:Name="programIcon" Height="30" Source="/icons/executables/program.png"></components:ImageButton>
+            </StackPanel>
+        </StackPanel>
+        <Grid  Grid.Row="2" Margin="15,15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.8*"></ColumnDefinition>
+                <ColumnDefinition Width="0.2*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="errorLabel" Foreground="Red" HorizontalAlignment="Left"></Label>
+            <components:TextButton HorizontalAlignment="Right" x:Name="saveButton" Grid.Column="1" ></components:TextButton>
+        </Grid>
+    </Grid>
+</UserControl>

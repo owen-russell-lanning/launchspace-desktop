@@ -10,7 +10,7 @@ namespace launchspace_desktop.windows
     /// <summary>
     /// window with a title bar
     /// </summary>
-    public interface TitleBarWindow
+    public interface ITitleBarWindow
     {
         public void Minimize();
         public void ToggleMaximize();

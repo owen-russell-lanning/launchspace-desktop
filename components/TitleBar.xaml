@@ -16,8 +16,8 @@
             <ColumnDefinition Width="30px"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Label Margin="20,0,0,0" FontSize="16" FontWeight="Bold" x:Name="titleLabel" Foreground="{StaticResource TEXT_COLOR}"></Label>
-        <local:ImageButton x:Name="imageButtonMinimize" Grid.Column="1" Margin="3"></local:ImageButton>
-        <local:ImageButton  x:Name="imageButtonMaximize"  Grid.Column="2" Margin="3" ></local:ImageButton>
-        <local:ImageButton x:Name="imageButtonClose"   Grid.Column="3" Margin="3"  ></local:ImageButton>
+        <local:HoverableImageButton x:Name="imageButtonMinimize" Grid.Column="1" Margin="3"></local:HoverableImageButton>
+        <local:HoverableImageButton  x:Name="imageButtonMaximize"  Grid.Column="2" Margin="3" ></local:HoverableImageButton>
+        <local:HoverableImageButton x:Name="imageButtonClose"   Grid.Column="3" Margin="3"  ></local:HoverableImageButton>
     </Grid>
 </UserControl>

@@ -38,6 +38,22 @@ namespace launchspace_desktop.components
 
         }
 
+        public void SetText(string text)
+        {
+            this.Foreground = TEXT_COLOR;
+            this.Text = text;
+            isPlaceholder = false;
+        }
+
+        protected override void OnKeyUp(KeyEventArgs e)
+        {
+            base.OnKeyUp(e);
+            if(e.Key == Key.Return)
+            {
+                Keyboard.ClearFocus();
+            }
+        }
+
         protected override void OnGotKeyboardFocus(KeyboardFocusChangedEventArgs e)
         {
             base.OnGotKeyboardFocus(e);

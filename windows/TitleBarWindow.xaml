@@ -1,0 +1,25 @@
+﻿<Window x:Class="launchspace_desktop.windows.TitleBarWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:launchspace_desktop.windows" xmlns:components="clr-namespace:launchspace_desktop.components"
+        mc:Ignorable="d"
+          Title="Launchspace" Height="450" Width="800"
+        Background="{StaticResource PRIMARY_COLOR}"
+          AllowsTransparency="False"
+        ResizeMode="CanResize"
+        WindowStyle="None">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0"/>
+    </WindowChrome.WindowChrome>
+    <Grid x:Name="contentGrid" VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition x:Name="titleBarRow" Height="30px"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <components:TitleBar x:Name="titleBar"></components:TitleBar>
+ 
+
+    </Grid>
+</Window>
