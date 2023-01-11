@@ -1,4 +1,6 @@
 ﻿using launchspace_compiler.lib.executables;
+using launchspace_desktop.components;
+using launchspace_desktop.lib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,9 +40,35 @@ namespace launchspace_desktop.pages.EditActionPages
             Init((ProgramExecutable)exec);
         }
 
-        public void Init(ProgramExecutable exec)
+        private void Init(ProgramExecutable exec)
         {
             this.exec = exec;
+            PopulateInstalledProgramsList();
+          
+        }
+
+
+        /// <summary>
+        /// populates the stack view with all installed programs
+        /// </summary>
+        private void PopulateInstalledProgramsList()
+        {
+            installedProgramWrap.Children.Clear();
+
+            List<(string, string, ImageSource)> installed = Helpers.GetInstalledPrograms();
+            foreach((string, string, ImageSource) program in installed)
+            {
+                VerticalTextImageButton b = new VerticalTextImageButton(program.Item1, program.Item3);
+                b.Width = 60;
+                b.Margin = new Thickness(7);
+                installedProgramWrap.Children.Add(b);
+
+                b.AddOnClick(() =>
+                {
+                    selectedProgramImage.Source = program.Item3;
+                });
+
+            }
         }
     }
 }

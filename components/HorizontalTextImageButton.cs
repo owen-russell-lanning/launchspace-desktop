@@ -16,7 +16,7 @@ namespace launchspace_desktop.components
   
  
 
-    internal class TextImageButton : Border
+    internal class HorizontalTextImageButton : Border
     {
 
         private static readonly SolidColorBrush BACKGROUND_COLOR = Constants.TERTIARY_COLOR;
@@ -31,7 +31,7 @@ namespace launchspace_desktop.components
         private bool toggled = false;
 
 
-        public TextImageButton()
+        public HorizontalTextImageButton()
         {
 
             grid = new Grid();
