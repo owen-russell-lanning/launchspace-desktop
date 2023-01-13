@@ -100,7 +100,9 @@ namespace launchspace_desktop.lib
             WshShell shell = new WshShell();
             IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(filePath);
             shortcut.Description = "launchspace shortcut";
-            shortcut.TargetPath = shortcutEndpointPath;
+            shortcut.Arguments = shortcutEndpointPath; 
+
+            shortcut.TargetPath = "launchspace-compiler"; 
 
             if (iconPath.Trim() != "")
             {
@@ -229,7 +231,7 @@ namespace launchspace_desktop.lib
                 System.IO.File.Delete(shPath);
 
                 //delete cached image
-                string imgPath = Path.Join(ICONS_PATH, name + ".png");
+                string imgPath = Path.Join(ICONS_PATH, name + ".ico");
                 if (System.IO.File.Exists(imgPath))
                 {
                     System.IO.File.Delete(imgPath);
