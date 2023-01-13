@@ -24,6 +24,7 @@ namespace launchspace_desktop.pages.EditActionPages
     public partial class EditProgramExecutablePage : UserControl, IEditActionPage
     {
         private ProgramExecutable exec;
+        private string selectedPath;
 
         public EditProgramExecutablePage()
         {
@@ -32,7 +33,10 @@ namespace launchspace_desktop.pages.EditActionPages
 
         public void ApplyChanges()
         {
-            throw new NotImplementedException();
+            if (selectedPath != null)
+            {
+                exec.SetPath(selectedPath);
+            }
         }
 
         public void Init(IExecutable exec)
@@ -66,6 +70,7 @@ namespace launchspace_desktop.pages.EditActionPages
                 b.AddOnClick(() =>
                 {
                     selectedProgramImage.Source = program.Item3;
+                    selectedPath = program.Item2;
                 });
 
             }

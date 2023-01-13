@@ -45,7 +45,7 @@ namespace launchspace_desktop.components
 
             //make image
             launcherImage = new Image() { Height = 70};
-            launcherImage.Source = new BitmapImage(new Uri(@"/icons/add.png", UriKind.Relative));
+            launcherImage.Source = LauncherManager.Current.GetLauncherIcon(launcherName);
             Grid.SetRow(launcherImage, 0);
             contentGrid.Children.Add(launcherImage);
 
@@ -56,13 +56,15 @@ namespace launchspace_desktop.components
             contentGrid.Children.Add(nameLabel);
 
             this.Child = contentGrid;
+
+            this.Padding = new System.Windows.Thickness(5);
         }
 
         protected override void OnMouseEnter(MouseEventArgs e)
         {
 
             base.OnMouseEnter(e);
-            this.Background = Constants.TERTIARY_COLOR;
+            this.Background = Constants.HIGHLIGHT_COLOR;
 
         }
         protected override void OnMouseLeave(MouseEventArgs e)

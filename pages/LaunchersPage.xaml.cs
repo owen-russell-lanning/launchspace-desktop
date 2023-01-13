@@ -1,8 +1,11 @@
-﻿using launchspace_desktop.components;
+﻿using launchspace_compiler;
+using launchspace_desktop.components;
 using launchspace_desktop.lib;
 using launchspace_desktop.windows;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -58,6 +61,8 @@ namespace launchspace_desktop.pages
             });
 
 
+  
+
             PopulateLaunchers();
 
         }
@@ -83,23 +88,31 @@ namespace launchspace_desktop.pages
             //display launchers
             foreach (string launcher in launchers)
             {
-                LauncherIconButton lButton = new LauncherIconButton(launcher);
-                lButton.Margin = new Thickness(10);
-                launchersDisplay.Children.Add(lButton);
-                lButton.AddOnClick(() =>
+                try
                 {
-                    if (editMode)
+                    LauncherIconButton lButton = new LauncherIconButton(launcher);
+                    lButton.Margin = new Thickness(10);
+                    launchersDisplay.Children.Add(lButton);
+                    lButton.AddOnClick(() =>
                     {
-                        //open edit page
-                        EditLauncherPage elp = new EditLauncherPage();
-                        elp.Init(launcher);
-                        ((MainWindow)App.Current.MainWindow).SetPage(elp);
-                    }
-                    else
-                    {
-                        //run launcher
-                    }
-                });
+                        if (editMode)
+                        {
+                            //open edit page
+                            EditLauncherPage elp = new EditLauncherPage();
+                            elp.Init(launcher);
+                            ((MainWindow)App.Current.MainWindow).SetPage(elp);
+                        }
+                        else
+                        {
+                            //run launcher
+                            Compiler.ReadAndExecute(LauncherManager.Current.GetLauncherFullPath(launcher));
+                        }
+                    });
+                }
+                catch(FileNotFoundException e)
+                {
+                    Debug.WriteLine("[LaunchersPage] Unable to populate launcher \"" + launcher + "\"");
+                }
             }
 
 

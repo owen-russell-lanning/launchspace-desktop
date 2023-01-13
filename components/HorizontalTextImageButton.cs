@@ -20,7 +20,7 @@ namespace launchspace_desktop.components
     {
 
         private static readonly SolidColorBrush BACKGROUND_COLOR = Constants.TERTIARY_COLOR;
-        private static readonly SolidColorBrush HOVER_COLOR = Constants.TERTIARY_HOVER_COLOR;
+       
         private static readonly SolidColorBrush TOGGLED_COLOR = Constants.HIGHLIGHT_COLOR;
 
         private Image image;
@@ -29,6 +29,8 @@ namespace launchspace_desktop.components
         private List<Action> onClickLs = new List<Action>(); //list of actions to invoke on click
         private bool toggleable = false; //if the button is a toggleable button
         private bool toggled = false;
+
+        private SolidColorBrush hoverColor = Constants.HIGHLIGHT_COLOR;
 
 
         public HorizontalTextImageButton()
@@ -91,7 +93,7 @@ namespace launchspace_desktop.components
         {
 
             base.OnMouseEnter(e);
-            this.Background = HOVER_COLOR;
+            this.Background = hoverColor;
 
             if (this.toggled)
             {
@@ -124,20 +126,35 @@ namespace launchspace_desktop.components
                 }
                 else
                 {
-                    this.Background = HOVER_COLOR;
+                    this.Background = hoverColor;
                 }
             }
 
             e.Handled = true;
-            foreach (Action a in onClickLs)
+            for(var i =0; i< onClickLs.Count; i++)
             {
-                a.Invoke();
+                onClickLs[i].Invoke();
             }
+
         }
 
         public void AddOnClick(Action a)
         {
             onClickLs.Add(a);
+        }
+
+        public void SetHoverColor(Color c)
+        {
+            this.hoverColor = new SolidColorBrush(c);
+        }
+
+
+        /// <summary>
+        /// clears all on click actions
+        /// </summary>
+        public void ClearOnClick()
+        {
+            onClickLs.Clear();
         }
     }
 

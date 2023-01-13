@@ -13,11 +13,7 @@
         </Grid.RowDefinitions>
         <StackPanel Margin="30, 20">
             <components:TextInput x:Name="nameInput" Padding="6"></components:TextInput>
-            <StackPanel Orientation="Horizontal" >
-                <Label VerticalAlignment="Center" Foreground="{StaticResource TEXT_COLOR}" FontWeight="Bold">Enable in Start Menu</Label>
-                <CheckBox Margin="0,20" VerticalAlignment="Center"></CheckBox>
-
-            </StackPanel>
+            
 
         </StackPanel>
         <Grid  Grid.Row="1" Margin="15,15">

@@ -86,9 +86,19 @@ namespace launchspace_desktop
            
         }
 
+
         public ControlPage GetPage()
         {
             return this.currentPage;
+        }
+
+
+        /// <summary>
+        /// returns the main window to home
+        /// </summary>
+        public void GoHome()
+        {
+            SetPage(new LaunchersPage());
         }
      
     }

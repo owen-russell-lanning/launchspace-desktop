@@ -35,11 +35,38 @@ namespace launchspace_desktop.pages
             InitializeComponent();
             editTitle.FontSize = Constants.TITLE_FONT_SIZE;
             editActions.FontSize = Constants.SUBTITLE_FONT_SIZE;
+            
             addNewActionButton.SetText("Add Action");
             addNewActionButton.SetSource(@"/icons/add.png");
             addNewActionButton.AddOnClick(AddNewAction);
 
-            
+            changeIconButton.SetText("Change Icon");
+            changeIconButton.SetSource(@"/icons/executables/file.png");
+
+            changeIconButton.AddOnClick(PickNewLauncherIcon);
+
+            deleteLauncherButton.SetText("Delete Launcher");
+            deleteLauncherButton.SetSource(@"/icons/trash.png");
+            deleteLauncherButton.SetHoverColor(Colors.Red);
+
+            deleteLauncherButton.AddOnClick(() =>
+            {
+
+                //onclick ask if sure, then delete after next click
+                deleteLauncherButton.SetText("Are you sure?");
+                deleteLauncherButton.ClearOnClick();
+                deleteLauncherButton.AddOnClick(() =>
+                {
+
+                    //delete launcher and return to main menu
+                    LauncherManager.Current.DeleteLauncher(launcherName);
+                    ((MainWindow)App.Current.MainWindow).GoHome();
+                });
+            });
+
+
+
+
         }
 
         /**
@@ -62,8 +89,10 @@ namespace launchspace_desktop.pages
                 EditableActionDisplay aDisplay = GetActionDisplay(exec);
                 actionStack.Children.Add(aDisplay);
             }
-    
-            
+
+            //get launcher icon
+            launcherIcon.Source = LauncherManager.Current.GetLauncherIcon(launcherName);
+
         }
 
         private EditableActionDisplay GetActionDisplay(IExecutable exec)
@@ -72,6 +101,11 @@ namespace launchspace_desktop.pages
             aDisplay.AddOnDelete((a) =>
             {
                 actionStack.Children.Remove(a);
+                List<IExecutable> execLs = execs.ToList();
+                execLs.Remove(exec);
+                execs = new Queue<IExecutable>(execLs);
+                RecompileLauncher();
+
 
             });
 
@@ -88,6 +122,14 @@ namespace launchspace_desktop.pages
 
                         //if saved, reload page
                         a.Reload(p.GetAction());
+                        List<IExecutable> execLs = execs.ToList();
+                        int pos = execLs.IndexOf(exec);
+                        if(pos != -1)
+                        {
+                            execLs.RemoveAt(pos);
+                            execLs.Insert(pos, p.GetAction());
+                        }
+                        execs = new Queue<IExecutable>(execLs);
                         RecompileLauncher();
                     }
                   
@@ -133,6 +175,34 @@ namespace launchspace_desktop.pages
             LauncherManager.Current.CompileLauncher(execs, launcherName);
         }
 
-     
+
+
+        /// <summary>
+        /// asks the user to pick a new icon for the given image
+        /// </summary>
+        public void PickNewLauncherIcon()
+        {
+            //open file dialog to choose a file as the new path
+
+            var dialog = new Microsoft.Win32.OpenFileDialog();
+
+            dialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;";
+
+            // Show open file dialog box
+            bool? result = dialog.ShowDialog();
+
+            // Process open file dialog box results
+            if (result == true)
+            {
+                string filename = dialog.FileName;
+                LauncherManager.Current.SetLauncherIcon(launcherName, filename);
+
+                //refresh icon
+                this.launcherIcon.Source = LauncherManager.Current.GetLauncherIcon(launcherName);
+
+
+            }
+        }
+
     }
 }

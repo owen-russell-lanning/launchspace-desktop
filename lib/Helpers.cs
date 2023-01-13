@@ -2,10 +2,13 @@
 using Microsoft.WindowsAPICodePack.Shell;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -25,8 +28,8 @@ namespace launchspace_desktop.lib
         }
 
 
-        private static List<(string, string, ImageSource)>  cachedInstalledPrograms;
-        
+        private static List<(string, string, ImageSource)> cachedInstalledPrograms;
+
         /// <summary>
         /// 
         /// </summary>
@@ -34,7 +37,7 @@ namespace launchspace_desktop.lib
         public static List<(string, string, ImageSource)> GetInstalledPrograms()
         {
 
-            if(cachedInstalledPrograms != null)
+            if (cachedInstalledPrograms != null)
             {
                 return cachedInstalledPrograms;
             }
@@ -47,10 +50,10 @@ namespace launchspace_desktop.lib
             {
                 string name = app.Name;
                 string appUserModelID = app.ParsingName;
-              
-                
+
+
                 ImageSource icon = app.Thumbnail.ExtraLargeBitmapSource;
-              
+
                 string path = app.Properties.System.Link.TargetParsingPath.Value;
 
                 if (path != null && path.Trim() != "")
@@ -63,6 +66,37 @@ namespace launchspace_desktop.lib
             cachedInstalledPrograms = programsOut;
 
             return programsOut;
+        }
+
+
+        /// <summary>
+        /// returns the image source for the icon of an executable file on the local machine
+        /// </summary>
+        /// <param name="path">path of executable file</param>
+        /// <returns>the icon of the executablea the path</returns>
+        public static ImageSource GetExecutableIcon(string path)
+        {
+            Icon i = Icon.ExtractAssociatedIcon(path);
+            ImageSource imageSource = Imaging.CreateBitmapSourceFromHIcon(
+            i.Handle,
+            Int32Rect.Empty,
+            BitmapSizeOptions.FromEmptyOptions());
+
+            return imageSource;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns>the directory of the given path</returns>
+        public static string GetDirectory(string path)
+        {
+            string[] parts = path.Split();
+            List<string> pLS = parts.ToList();
+            pLS.RemoveAt(pLS.Count - 1);
+            return string.Join("\\", pLS);
         }
     }
 }
